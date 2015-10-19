@@ -13,7 +13,7 @@
  replace the %data% placeholder text you see in them.
  */
 var HTMLheaderName = '<h1 id="name">%data%</h1>';
-var HTMLheaderRole = '<span>%data%</span><hr/>';
+var HTMLheaderRole = '<span class="white-text">%data%</span><hr/>';
 
 var HTMLcontactGeneric = '<li class="flex-item"><span class="orange-text">%contact%</span><span class="white-text">%data%</span></li>';
 var HTMLmobile = '<li class="flex-item"><span class="orange-text">mobile</span><span class="white-text">%data%</span></li>';
@@ -47,11 +47,16 @@ var HTMLschoolName = '<a href="#">%data%';
 var HTMLschoolDegree = ' -- %data%</a>';
 var HTMLschoolDates = '<div class="date-text">%data%</div>';
 var HTMLschoolLocation = '<div class="location-text">%data%</div>';
-var HTMLschoolMajor = '<em><br>Major: %data%</em>';
+var HTMLschoolSingleMajor = '<p>Major: %data%';
+var HTMLschoolAddlMajor = ',  %data%</p>';
 
-var HTMLonlineClasses = '<h3>Online Classes</h3>';
-var HTMLonlineTitle = '<a href="#">%data%';
-var HTMLonlineSchool = ' - %data%</a>';
+var HTMLonlineClassesStart ='<div class="online-school-entry"></div>';
+var HTMLonlineSchool = '<a href="#">%data%';
+var HTMLonlineProgram = ' - %data%</a>';
+var HTMLonlineSingleCourse = '<p>Course: %data%</p>';
+var HTMLonlineFirstCourse = '<p>Courses: %data%';
+var HTMLonlineAddlCourse = ', %data%';
+var HTMLonlineLastCourse = ',  %data%</p>';
 var HTMLonlineDates = '<div class="date-text">%data%</div>';
 var HTMLonlineURL = '<br><a href="#">%data%</a>';
 
@@ -128,12 +133,12 @@ function initializeMap() {
         var locations = [];
 
         // adds the single location property from bio to the locations array
-        locations.push(bio.contacts.location);
+        locations.push(bio.contactInfo.location);
 
         // iterates through school locations and appends each location to
         // the locations array
         for (var school in education.schools) {
-            locations.push(education.schools[school].location);
+            locations.push(education.schools[school].city);
         }
 
         // iterates through work locations and appends each location to
@@ -141,7 +146,6 @@ function initializeMap() {
         for (var job in work.jobs) {
             locations.push(work.jobs[job].location);
         }
-
         return locations;
     }
 
@@ -175,6 +179,7 @@ function initializeMap() {
         // hmmmm, I wonder what this is about...
         google.maps.event.addListener(marker, 'click', function () {
             // your code goes here!
+            infoWindow.open(map, marker);
         });
 
         // this is where the pin actually gets added to the map.
@@ -236,12 +241,13 @@ function initializeMap() {
  Uncomment the code below when you're ready to implement a Google Map!
  */
 
-// Calls the initializeMap() function when the page loads
-//window.addEventListener('load', initializeMap);
+//Calls the initializeMap() function when the page loads
+window.addEventListener('load', initializeMap);
 
 // Vanilla JS way to listen for resizing of the window
 // and adjust map bounds
-//window.addEventListener('resize', function(e) {
-//Make sure the map bounds get updated on page resize
-//  map.fitBounds(mapBounds);
-//});
+window.addEventListener('resize', function (e) {
+    //Make sure the map bounds get updated on page resize
+    map.fitBounds(mapBounds);
+});
+
