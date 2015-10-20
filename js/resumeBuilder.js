@@ -21,11 +21,14 @@ var bio = {
         var formattedPicture = HTMLbioPic.replace("%data%", bio.picture);
         $("#header").prepend(formattedPicture);
         var formattedEmail = HTMLemail.replace("%data%", bio.contactInfo.email);
-        $("#header").append(formattedEmail);
-        $("#lets-connect").append(formattedEmail);
+        $("#topContacts").append(formattedEmail);
+        $("#footerContacts").append(formattedEmail);
         var formattedGithub = HTMLgithub.replace("%data%", bio.contactInfo.github);
-        $("#header").append(formattedGithub);
-        $("#lets-connect").append(formattedGithub);
+        $("#topContacts").append(formattedGithub);
+        $("#footerContacts").append(formattedGithub);
+        var formattedLocation = HTMLlocation.replace("%data%", bio.contactInfo.location);
+        $("#topContacts").append(formattedLocation);
+        $("#footerContacts").append(formattedLocation);
         var formattedMsg = HTMLwelcomeMsg.replace("%data%", bio.welcomeMsg);
         $("#header").append(formattedMsg);
         if (bio.skills.length > 0) {
